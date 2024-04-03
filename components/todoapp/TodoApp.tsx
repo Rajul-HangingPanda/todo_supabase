@@ -9,7 +9,7 @@ interface User {
   id: number;
   description: string;
   completed: boolean;
-  
+  user_id: string;
 }
 
 const TodoApp: React.FC = () => {
@@ -21,7 +21,7 @@ const TodoApp: React.FC = () => {
     fetchUsers();
   }, []);
 
-  const cookieValue = getCookie('sb-bmcfozonebwygxcdemaz-auth-token') || ''; 
+  const cookieValue = getCookie('sb-bmcfozonebwygxcdemaz-auth-token') || '';
 const data = cookieValue ? JSON.parse(cookieValue) : null;  
 
   const id = data?.user?.id;
@@ -66,7 +66,7 @@ const data = cookieValue ? JSON.parse(cookieValue) : null;
     user.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const finalarr = filteredUsers.filter(user => user.id)
+  const finalarr = filteredUsers.filter((users) => users.user_id == id)
 
 
   return (
