@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getCookies } from 'cookies-next';
 
 export default async function AuthButton() {
   const supabase = createClient();
@@ -8,10 +9,12 @@ export default async function AuthButton() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  console.log(user?.user_metadata?.user_metadata);
+
+  const userName = user?.user_metadata?.user_metadata;
 
   const signOut = async () => {
     "use server";
-
     const supabase = createClient();
     await supabase.auth.signOut();
     return redirect("/login");
@@ -19,7 +22,9 @@ export default async function AuthButton() {
 
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
+      <span className="capitalize	text-white">
+        Hey, {userName}!
+      </span>
       <form action={signOut}>
         <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
           Logout
