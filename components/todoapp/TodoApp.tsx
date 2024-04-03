@@ -66,7 +66,7 @@ const data = cookieValue ? JSON.parse(cookieValue) : null;
     user.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const finalarr = filteredUsers.filter(user => user.id == id)
+  const finalarr = filteredUsers.filter(user => user.id)
 
 
   return (
